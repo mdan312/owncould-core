@@ -34,8 +34,8 @@
 
 namespace OC;
 
-use \OC\Tagging\Tag,
-    \OC\Tagging\TagMapper;
+use \OC\Tagging\Tag;
+use \OC\Tagging\TagMapper;
 
 class Tags implements \OCP\ITags {
 
@@ -242,12 +242,44 @@ class Tags implements \OCP\ITags {
 	}
 
 	/**
+	 * Get the list of ids for the given tag.
+	 *
+	 * @param string $tagName Name of the tag you want to search for
+	 * @return array Object ids that are related to this tag
+	 */
+	public function getObjectsForTag($tagName) {
+		$tag = $this->getTagId($tagName);
+		if (!$tag) {
+			return [];
+		}
+
+		$connection = \OC::$server->getDatabaseConnection();
+		$query = $connection->executeQuery(
+			'SELECT `objid` ' .
+			'FROM `' . self::RELATION_TABLE . '` ' .
+			'WHERE `categoryid` = ? AND `type` = ?',
+			[(int) $tag, $this->type]
+		);
+		$result = $query->execute();
+		if (!$result) {
+			return [];
+		} else {
+			$entries = [];
+			while ($row = $query->fetch()) {
+				$entries[] = $row['objid'];
+			}
+			return $entries;
+		}
+	}
+
+	/**
 	* Get the a list if items tagged with $tag.
 	*
 	* Throws an exception if the tag could not be found.
 	*
 	* @param string $tag Tag id or name.
 	* @return array|false An array of object ids or false on error.
+	* @throws \Exception
 	*/
 	public function getIdsForTag($tag) {
 		$result = null;

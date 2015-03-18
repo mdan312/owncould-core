@@ -92,6 +92,14 @@ interface ITags {
 	public function getTagsForObjects(array $objIds);
 
 	/**
+	 * Get the list of ids for the given tag.
+	 *
+	 * @param string $tagName Name of the tag you want to search for
+	 * @return array Object ids that are related to this tag
+	 */
+	public function getObjectsForTag($tagName);
+
+	/**
 	* Get a list of items tagged with $tag.
 	*
 	* Throws an exception if the tag could not be found.
