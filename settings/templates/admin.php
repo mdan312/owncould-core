@@ -111,7 +111,7 @@ if ($_['databaseOverload']) {
 		</strong>
 	</p>
 	<p>
-		<?php p($l->t('To migrate to another database use the command line tool: \'occ db:convert-type\'')); ?>
+		<?php print_unescaped($l->t('To migrate to another database use the command line tool: \'occ db:convert-type\', or see the <a target="_blank" href="%s">documentation ↗</a>.', "https://doc.owncloud.org/server/8.0/admin_manual/configuration_database/db_conversion.html?highlight=sqlite")); ?>
 	</p>
 
 </div>
@@ -228,7 +228,7 @@ if ($_['cronErrors']) {
 	<ul class="errors hidden"></ul>
 	<div class="hint hidden">
 		<span class="setupwarning"><?php
-			print_unescaped($l->t('Please double check the <a href="%s">installation guides</a>, and check for any errors or warnings in the <a href="#log-section">log</a>.', \OC_Helper::linkToDocs('admin-install')));
+			print_unescaped($l->t('Please double check the <a target="_blank" href="%s">installation guides ↗</a>, and check for any errors or warnings in the <a href="#log-section">log</a>.', \OC_Helper::linkToDocs('admin-install')));
 		?></span>
 	</div>
 </div>
@@ -489,6 +489,17 @@ if ($_['cronErrors']) {
 	</em>
 	<?php endif; ?>
 	<?php endif; ?>
+</div>
+
+<div class="section" id="admin-tips">
+	<h2><?php p($l->t('Tips & tricks'));?></h2>
+	<ul>
+		<li><a target="_blank" href="<?php p(link_to_docs('admin_manual')); ?>/maintenance/backup.html?highlight=backup#backup-folders"><?php p($l->t('How to back up your instance'));?> ↗</a></li>
+		<li><a target="_blank" href="https://doc.owncloud.org/server/8.0/admin_manual/operations/considerations_on_monitoring.html"><?php p($l->t('Advanced monitoring'));?> ↗</a></li>
+		<li><a target="_blank" href="https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/performance_tuning.html"><?php p($l->t('Performance tuning'));?> ↗</a></li>
+		<li><a target="_blank" href="https://doc.owncloud.org/server/8.0/developer_manual/core/theming.html"><?php p($l->t('Theming'));?> ↗</a></li>
+		<li><a target="_blank" href="https://doc.owncloud.org/server/7.0/admin_manual/configuration/configuration_config_sample_php.html"><?php p($l->t('Improving your config.php'));?> ↗</a></li>
+	</ul>
 </div>
 
 <div class="section">
