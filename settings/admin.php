@@ -87,12 +87,12 @@ $template->assign('ApcuOutdatedWarning',
 // add hardcoded forms from the template
 $forms = OC_App::getForms('admin');
 $l = OC_L10N::get('settings');
-$formsAndMore = array();
+$formsAndMore = [];
 if ($request->getServerProtocol()  !== 'https' || !OC_Util::isAnnotationsWorking() ||
 	$suggestedOverwriteCliUrl || !OC_Util::isSetLocaleWorking()  ||
 	!OC_Util::fileInfoLoaded() || $databaseOverload
 ) {
-	$formsAndMore[] = array('anchor' => 'security-warning', 'section-name' => $l->t('Security & Setup Warnings'));
+	$formsAndMore[] = ['anchor' => 'security-warning', 'section-name' => $l->t('Security & Setup Warnings')];
 }
 
 $formsMap = array_map(function ($form) {
@@ -102,24 +102,25 @@ $formsMap = array_map(function ($form) {
 		$anchor = strtolower($sectionName);
 		$anchor = str_replace(' ', '-', $anchor);
 
-		return array(
+		return [
 			'anchor' => 'goto-' . $anchor,
 			'section-name' => $sectionName,
 			'form' => $form
-		);
+		];
 	}
-	return array(
+	return [
 		'form' => $form
-	);
+	];
 }, $forms);
 
 $formsAndMore = array_merge($formsAndMore, $formsMap);
 
 // add bottom hardcoded forms from the template
-$formsAndMore[] = array('anchor' => 'backgroundjobs', 'section-name' => $l->t('Cron'));
-$formsAndMore[] = array('anchor' => 'shareAPI', 'section-name' => $l->t('Sharing'));
-$formsAndMore[] = array('anchor' => 'mail_general_settings', 'section-name' => $l->t('Email Server'));
-$formsAndMore[] = array('anchor' => 'log-section', 'section-name' => $l->t('Log'));
+$formsAndMore[] = ['anchor' => 'backgroundjobs', 'section-name' => $l->t('Cron')];
+$formsAndMore[] = ['anchor' => 'shareAPI', 'section-name' => $l->t('Sharing')];
+$formsAndMore[] = ['anchor' => 'mail_general_settings', 'section-name' => $l->t('Email Server')];
+$formsAndMore[] = ['anchor' => 'log-section', 'section-name' => $l->t('Log')];
+$formsAndMore[] = ['anchor' => 'admin-tips', 'section-name' => $l->t('Tips & tricks')];
 
 $template->assign('forms', $formsAndMore);
 
